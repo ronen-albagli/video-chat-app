@@ -1,78 +1,70 @@
-import React, { useState, Component } from 'react';
-import { interval } from 'rxjs';
-import { take } from 'rxjs/operators';
+import React from "react";
+import "./VideoScreen.scss";
+
+import { fromEvent } from "rxjs";
 import io from "socket.io-client";
+
 import Webcam from "react-webcam";
 
+// RxJS v6+
+import { interval } from "rxjs";
+import { take } from "rxjs/operators";
+import { debounce } from "rxjs/operators";
+import _ from "lodash";
 
+class Test extends React.Component {
+  state = {
+    src: null,
+    startStream: false,
+    socket: io("http://localhost:8080")
+  };
+  componentDidMount() {
+    // this.setState(() => ({ src: new Date() }));
+  }
 
-class Parent extends Comment {
+  debounce = () => _.debounce(this.startInterval, 300);
 
-    constructor() {
-        this.state = {
-            srcs: []
-
-        }
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextProps !== this.props) {
+      return true;
+    }
+    if (this.state !== nextState) {
+      if (!this.state.startStream && nextState.startStream) {
+        console.log("in111", this.state.startStream);
+        console.log("in111", nextState.startStream);
+        this.debounce();
+        // return true;
+      }
+      return true;
     }
 
-    render() {
-        return (
-            <VideoCam />
-        )
-    }
+    return false;
+  }
+
+  startInterval = () => {
+    console.log("sdfsdf");
+    const interval = setInterval(() => {
+      console.log("in");
+      this.state.socket.emit("test", "test image");
+    }, 1000);
+  };
+
+  startVideo = () => {
+    this.startInterval();
+  };
+  render() {
+    this.state.socket.on("image", imageBuf => {
+      console.log("oin");
+      this.setState(() => ({ src: new Date() }));
+    });
+    return (
+      <div>
+        <h2>Now Live</h2>
+        <button onClick={this.startVideo}>start Video</button>
+        {/* <img src={this.state.src} alt="" /> */}
+      </div>
+    );
+  }
 }
 
-const videoConstraints = {
-    width: 1280,
-    height: 720,
-    facingMode: "user"
-};
-
-
-const VideoCam = () => {
-    // const webcamRef = React.useRef(null);
-    const webcamRef = null
-
-    // const [src, setSrc] = useState(null);
-    // const [start, setStart] = useState(false);
-
-    // const capture = React.useCallback(
-    //     () => {
-    //         const imageSrc = webcamRef.current && webcamRef.current.getScreenshot();
-    //         console.log('clicked');
-    //         setStart(true);
-    //     },
-    //     [webcamRef]
-    // );
-
-    const capture = () => { }
-
-    const interval$ = interval(5000);
-    interval$.pipe(take(1)).subscribe(() => {
-        console.log('sdf');
-        // if (webcamRef) {
-        // setSrc(new Date());
-        capture()
-        // }
-    });
-    setInterval(() => {
-
-    }, 1000)
-    console.log('loaded')
-
-    return (
-        <div>
-            <Webcam
-                audio={false}
-                height={720}
-                // ref={webcamRef}
-                screenshotFormat="image/jpeg"
-                width={1280}
-                videoConstraints={videoConstraints}
-            />
-            <button onClick={capture}>Capture photo</button>
-        </div>
-    );
-};
-
-export default Parent;
+export default Test;

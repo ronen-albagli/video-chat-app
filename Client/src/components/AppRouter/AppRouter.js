@@ -12,6 +12,7 @@ import createHistory from "history/createBrowserHistory";
 import "./AppRouter.scss";
 import VideoScreen from "../../screens/VideoScreen/VideoScreen";
 import Layout from "../Layout/Layout";
+import Test from "../../screens/VideoScreen/test";
 
 export const history = createHistory();
 

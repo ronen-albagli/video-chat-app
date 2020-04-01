@@ -13,7 +13,7 @@ import HostCam from "./Host";
 import UserCam from "./user";
 
 const VideoScreen = props => {
-  const socket = io("http://localhost:8080");
+  // const socket = io("http://localhost:8080");
   // const socket = io("http://localhost:8080");
 
   // http://539cc6e6.ngrok.io

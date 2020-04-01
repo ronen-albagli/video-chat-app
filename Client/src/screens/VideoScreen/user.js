@@ -25,18 +25,23 @@ import { fromEvent } from "rxjs";
 
 class UserCam extends React.Component {
   state = {
-    src: null,
-    socket: io("http://localhost:8080")
+    src: null
+    // socket: io("http://localhost:8080")
   };
 
   render() {
-    const {
-      state: { socket }
-    } = this;
-    const imageReceived$ = fromEvent(socket, "image");
-    imageReceived$.subscribe(imageBuf =>
-      this.setState(() => ({ src: imageBuf }))
-    );
+    // const {
+    //   state: { socket }
+    // } = this;
+    // const imageReceived$ = fromEvent(socket, "image");
+    // imageReceived$.subscribe(imageBuf =>
+    //   this.setState(() => ({ src: imageBuf }))
+    // );
+    const socket = io("http://5165e917.ngrok.io");
+    socket.on("image", image => {
+      // console.log(1);
+      this.setState(() => ({ src: image }));
+    });
 
     return (
       <div>

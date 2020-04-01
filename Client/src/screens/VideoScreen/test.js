@@ -15,8 +15,8 @@ import _ from "lodash";
 class Test extends React.Component {
   state = {
     src: null,
-    startStream: false,
-    socket: io("http://localhost:8080")
+    startStream: false
+    // socket: io("http://localhost:8080")
   };
   componentDidMount() {
     // this.setState(() => ({ src: new Date() }));
@@ -41,17 +41,17 @@ class Test extends React.Component {
     return false;
   }
 
-  startInterval = () => {
-    console.log("sdfsdf");
-    const interval = setInterval(() => {
-      console.log("in");
-      this.state.socket.emit("test", "test image");
-    }, 1000);
-  };
+  // startInterval = () => {
+  //   console.log("sdfsdf");
+  //   const interval = setInterval(() => {
+  //     console.log("in");
+  //     this.state.socket.emit("test", "test image");
+  //   }, 1000);
+  // };
 
-  startVideo = () => {
-    this.startInterval();
-  };
+  // startVideo = () => {
+  //   this.startInterval();
+  // };
   render() {
     this.state.socket.on("image", imageBuf => {
       console.log("oin");

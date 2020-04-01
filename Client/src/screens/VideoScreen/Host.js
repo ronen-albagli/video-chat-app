@@ -5,27 +5,36 @@ import { interval } from "rxjs";
 import { take } from "rxjs/operators";
 
 const HostCam = () => {
+  const webcamRef = React.createRef(null);
   // const [src, setSrc] = useState(null);
-  const socket = io("http://localhost:8080");
+  const socket = io("http://5165e917.ngrok.io");
   const videoConstraints = {
     width: 1280,
     height: 720,
     facingMode: "user"
   };
 
-  const webcamRef = React.useRef(null);
-  const capture = React.useCallback(() => {
-    const imageSrc = webcamRef.current && webcamRef.current.getScreenshot();
-    imageSrc && socket.emit("test", imageSrc);
-  }, [webcamRef]);
+  // const capture = React.useCallback(() => {
+  //   const imageSrc = webcamRef.current && webcamRef.current.getScreenshot();
+  //   imageSrc && socket.emit("test", imageSrc);
+  // }, [webcamRef]);
 
-  const interval$ = interval(75);
-  const example = interval$.subscribe(() => capture());
+  setInterval(() => {
+    console.log("1", 1);
+    // capture();
+    const imageSrc = webcamRef.current.getScreenshot();
+    socket.emit("test", imageSrc);
+  }, 75);
+
+  // setInterval(() => {
+  //   capture();
+  // }, 1000);
 
   return (
     <div>
       <h2>No111w Live</h2>
       <Webcam
+        id="test"
         audio={false}
         height={720}
         ref={webcamRef}

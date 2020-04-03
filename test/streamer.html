@@ -3,11 +3,11 @@
     <title>Streamer</title>
   </head>
   <body>
-    <video autoplay></video>
+    <video id="video" autoplay></video>
     <script>
       setTimeout(() => {
         // get video dom element
-        const video = document.querySelector("video");
+        const video = document.getElementById("video");
 
         // request access to webcam
         navigator.mediaDevices

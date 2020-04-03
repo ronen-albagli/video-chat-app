@@ -3,11 +3,11 @@
     <title>Client</title>
   </head>
   <body>
-    <img src="" />
+    <img id="test-img" src="" />
     <script>
       setTimeout(() => {
         // get img dom element
-        const img = document.querySelector("img");
+        const img = document.getElementById("test-img");
 
         const WS_URL = location.origin.replace(/^http/, "ws");
         const ws = new WebSocket(WS_URL);

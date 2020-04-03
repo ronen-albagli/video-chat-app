@@ -12,6 +12,7 @@ import Webcam from "react-webcam";
 // render() {
 // const img = document.querySelector('img');
 const UserCam = () => {
+  const [src, setSrc] = useState(null);
   useEffect(() => {
     const img = document.getElementById("image-test");
     if (img) {
@@ -20,7 +21,9 @@ const UserCam = () => {
       ws.onopen = () => console.log(`Connected to ${WS_URL}`);
       ws.onmessage = (message) => {
         // set the base64 string to the src tag of the image
-        img.src = message.data;
+        console.log("df");
+        // img.src = message.data;
+        setSrc(message.data);
       };
     }
   }, []);
@@ -28,7 +31,7 @@ const UserCam = () => {
   return (
     <div>
       <h2>No111w Live</h2>
-      <img src="" id="image-test" alt="" />
+      <img src={src} id="image-test" alt="" />
     </div>
   );
 };

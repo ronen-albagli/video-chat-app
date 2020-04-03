@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import io from "socket.io-client";
-import Webcam from "react-webcam";
-import { interval } from "rxjs";
-import { take } from "rxjs/operators";
+<html>
+  <head>
+    <title>Streamer</title>
+  </head>
+  <body>
+    <video autoplay></video>
+    <script>
+      // get video dom element
+      const video = document.querySelector("video");
 
-const HostCam = () => {
-  useEffect(() => {
-    const video = document.getElementById("video");
-    if (video) {
       // request access to webcam
       navigator.mediaDevices
         .getUserMedia({ video: { width: 426, height: 240 } })
@@ -22,22 +22,15 @@ const HostCam = () => {
         const data = canvas.toDataURL("image/png");
         return data;
       };
-      const WS_URL = window.location.origin.replace(/^http/, "ws");
-      const ws = new WebSocket("ws://134.122.77.97:3000");
+      const WS_URL = location.origin.replace(/^http/, "ws");
+      const FPS = 3;
+      const ws = new WebSocket(WS_URL);
       ws.onopen = () => {
+        console.log(`Connected to ${WS_URL}`);
         setInterval(() => {
-          console.log("d");
           ws.send(getFrame());
-        }, 350);
+        }, 25);
       };
-    }
-  }, []);
-  return (
-    <div>
-      <h2>No111w Live</h2>
-      <video id="video" autoPlay></video>
-    </div>
-  );
-};
-
-export default HostCam;
+    </script>
+  </body>
+</html>

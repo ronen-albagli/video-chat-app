@@ -12,53 +12,18 @@ import { take } from "rxjs/operators";
 import HostCam from "./Host";
 import UserCam from "./user";
 
-const VideoScreen = props => {
-  // const socket = io("http://localhost:8080");
-  // const socket = io("http://localhost:8080");
-
-  // http://539cc6e6.ngrok.io
-
-  // const webcamRef = React.useRef(null);
-  // const capture = React.useCallback(
-  //   () => {
-  //     const imageSrc = webcamRef.current && webcamRef.current.getScreenshot();
-  //     console.log(imageSrc);
-  //     imageSrc && socket.emit('test', imageSrc);
-
-  //   },
-  //   [webcamRef]
-  // );
-
-  // const interval$ = interval(1000);
-  // const example = interval$.pipe(take(1)).subscribe(() => capture());
-  // // setInterval(() => {
-  // //   console.log('sdf');
-  // //   capture()
-  // // }, 5000);
-
-  // const videoConstraints = {
-  //   width: 1280,
-  //   height: 720,
-  //   facingMode: "user"
-  // };
-
-  // const [src, setSrc] = useState(null);
-
-  // // const imgEvent = fromEvent(socket, 'image');
-  // socket.on("image", imageBuf => {
-  //   if (imageBuf != src) {
-  //     console.log('oin');
-  //     setSrc(`${imageBuf}`);
-  //   }
-  // });
-  // imgEvent.subscribe(imageBuf => {
-  // setSrc(`${imageBuf}`);
-  // });
-
+const VideoScreen = (props) => {
+  const [role, setRole] = useState(null);
   return (
     <div>
-      <HostCam />
-      <UserCam />
+      <div>
+        <div onClick={() => setRole("host")}>Join as host</div>
+        <div onClick={() => setRole("user")}> >Join meeting</div>
+      </div>
+      {role === "host" ? <HostCam /> : <React.Fragment />}
+      {role === "user" ? <UserCam /> : <React.Fragment />}
+      {/* <HostCam />
+      <UserCam /> */}
     </div>
   );
 };

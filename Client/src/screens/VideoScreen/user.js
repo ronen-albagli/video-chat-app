@@ -1,54 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import io from "socket.io-client";
 import { merge } from "rxjs";
 import { fromEvent } from "rxjs";
+import Webcam from "react-webcam";
+// class UserCam extends React.Component {
+//   state = {
+//     src: null,
+//     // socket: io("http://localhost:8080")
+//   };
 
-// const UserCam = () => {
-//   const [src, setSrc] = useState(null);
-//   //   const socket = io("http://localhost:8080");
+// render() {
+// const img = document.querySelector('img');
+const UserCam = () => {
+  useEffect(() => {
+    const img = document.getElementById("image-test");
+    if (img) {
+      const WS_URL = "ws://bdfa769a.ngrok.io";
+      const ws = new WebSocket(WS_URL);
+      ws.onopen = () => console.log(`Connected to ${WS_URL}`);
+      ws.onmessage = (message) => {
+        // set the base64 string to the src tag of the image
+        img.src = message.data;
+      };
+    }
+  }, []);
 
-//   socket.on("image", imageBuf => {
-//     if (imageBuf != src) {
-//       console.log("oin");
-//       setSrc(`${imageBuf}`);
-//     }
-//   });
-//   setSrc(`${"sdfds"}`);
+  return (
+    <div>
+      <h2>No111w Live</h2>
+      <img src="" id="image-test" alt="" />
+    </div>
+  );
+};
 
-//   return (
-//     <div>
-//       <h2>No111w Live</h2>
-//       <img src={src} alt="" />
-//     </div>
-//   );
-// };
-
-class UserCam extends React.Component {
-  state = {
-    src: null
-    // socket: io("http://localhost:8080")
-  };
-
-  render() {
-    // const {
-    //   state: { socket }
-    // } = this;
-    // const imageReceived$ = fromEvent(socket, "image");
-    // imageReceived$.subscribe(imageBuf =>
-    //   this.setState(() => ({ src: imageBuf }))
-    // );
-    const socket = io("http://5165e917.ngrok.io");
-    socket.on("image", image => {
-      // console.log(1);
-      this.setState(() => ({ src: image }));
-    });
-
-    return (
-      <div>
-        <h2>No111w Live</h2>
-        <img src={this.state.src} alt="" />
-      </div>
-    );
-  }
-}
 export default UserCam;

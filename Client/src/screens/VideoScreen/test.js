@@ -15,7 +15,7 @@ import _ from "lodash";
 class Test extends React.Component {
   state = {
     src: null,
-    startStream: false
+    startStream: false,
     // socket: io("http://localhost:8080")
   };
   componentDidMount() {
@@ -52,7 +52,7 @@ class Test extends React.Component {
   //   this.startInterval();
   // };
   render() {
-    this.state.socket.on("image", imageBuf => {
+    this.state.socket.on("image", (imageBuf) => {
       console.log("oin");
       this.setState(() => ({ src: new Date() }));
     });

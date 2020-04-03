@@ -23,12 +23,11 @@ const HostCam = () => {
         return data;
       };
       const WS_URL = window.location.origin.replace(/^http/, "ws");
-      const ws = new WebSocket("ws://bdfa769a.ngrok.io");
+      const ws = new WebSocket("ws://134.122.77.97:3000");
       ws.onopen = () => {
-        console.log(`Connected to ${WS_URL}`);
         setInterval(() => {
           ws.send(getFrame());
-        }, 75);
+        }, 200);
       };
     }
   }, []);

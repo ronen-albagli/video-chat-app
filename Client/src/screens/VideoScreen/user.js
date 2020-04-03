@@ -15,7 +15,7 @@ const UserCam = () => {
   useEffect(() => {
     const img = document.getElementById("image-test");
     if (img) {
-      const WS_URL = "ws://bdfa769a.ngrok.io";
+      const WS_URL = "ws://134.122.77.97:3000";
       const ws = new WebSocket(WS_URL);
       ws.onopen = () => console.log(`Connected to ${WS_URL}`);
       ws.onmessage = (message) => {

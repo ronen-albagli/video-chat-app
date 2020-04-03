@@ -58,7 +58,6 @@ wsServer.on("connection", (ws, req) => {
     // send the base64 encoded frame to each connected ws
     connectedClients.forEach((ws, i) => {
       if (ws.readyState === ws.OPEN) {
-        console.log("con");
         // check if it is still connected
         ws.send(data); // send
       } else {
